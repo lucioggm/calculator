@@ -1,24 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState, useEffect } from "react";
 
 function App() {
+  const [input, setInput] = useState("");
+
+  useEffect(() => {
+    console.log(input);
+  }, [input]);
+
+  function handleClick(e) {
+    const value = e.currentTarget.value;
+    setInput(prevInput => prevInput + value);
+  }
+
+  function EqualButton() {
+    return <button id="equals">=</button>;
+  }
+
+  function Display() {
+    return <div id="display">{input}</div>;
+  }
+
+  function NumbersButtons() {
+    const idButtons = ["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", "."];
+    const names = ["seven", "eight", "nine", "four", "five", "six", "one", "two", "three", "zero", "decimal"];
+
+    return (
+        <div className="numbers-wrapper">
+          {idButtons.map((key, index) => (
+              <button key={index} id={names[index]} onClick={handleClick} value={key}>
+                {key}
+              </button>
+          ))}
+        </div>
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <h1>Hola</h1>
+        <Display />
+        <NumbersButtons />
+        <EqualButton />
+      </div>
   );
 }
 
