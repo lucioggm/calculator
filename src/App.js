@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 function App() {
   const [input, setInput] = useState("");
+  const [output,setOutput] = useState("")
 
   useEffect(() => {
     console.log(input);
@@ -11,6 +12,11 @@ function App() {
   function handleClick(e) {
     const value = e.currentTarget.value;
     setInput(prevInput => prevInput + value);
+  }
+  function clear()
+  {
+      setInput("")
+      setOutput("")
   }
 
   function EqualButton() {
@@ -25,6 +31,7 @@ function App() {
     const idButtons = ["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", "."];
     const names = ["seven", "eight", "nine", "four", "five", "six", "one", "two", "three", "zero", "decimal"];
 
+
     return (
         <div className="numbers-wrapper">
           {idButtons.map((key, index) => (
@@ -35,6 +42,34 @@ function App() {
         </div>
     );
   }
+    function DivideButton()
+    {
+        return <button id={"divide"} onClick={handleClick} value="/">/</button>
+    }
+    function MultiplyButton()
+    {
+        return <button id={"multiply"} onClick={handleClick} value="*">*</button>
+    }
+    function SubtractButton()
+    {
+        return <button id={"subtract"} onClick={handleClick} value="-">-</button>
+    }
+    function AddButton()
+    {
+        return <button id={"add"} onClick={handleClick} value="+">+</button>
+    }
+    function ClearButton()
+    {
+        return <button id={"clear"} onClick={clear} style={{"color":"red"}}>AC</button>
+
+    }
+    function validator(expression)
+    {
+
+
+        let operation = " x"
+        return operation;
+    }
 
   return (
       <div>
@@ -42,6 +77,12 @@ function App() {
         <Display />
         <NumbersButtons />
         <EqualButton />
+          <AddButton />
+          <SubtractButton />
+          <DivideButton />
+          <MultiplyButton />
+          <ClearButton  />
+
       </div>
   );
 }
