@@ -16,4 +16,9 @@ code {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 20px;
+  width: 100vw;
+  height: 80vh;
+
 }

@@ -6,12 +6,13 @@ function App() {
   const [output,setOutput] = useState("")
 
   useEffect(() => {
-    console.log(input);
   }, [input]);
 
   function handleClick(e) {
     const value = e.currentTarget.value;
-    setInput(prevInput => prevInput + value);
+    const newValue = validator(value,input)
+    setInput(newValue)
+    setOutput(newValue)
   }
   function clear()
   {
@@ -19,12 +20,54 @@ function App() {
       setOutput("")
   }
 
-  function EqualButton() {
-    return <button id="equals">=</button>;
+    function deleteHandle() {
+        let aux = "";
+        for (let i = 0; i < input.length - 1; i++) { // Corrección aquí
+            aux += input[i];
+        }
+        setInput(aux);
+        setOutput(aux);
+    }
+    function equalHandle()
+    {
+        console.log("input calculado: " + input)
+        const resultado = calcularExpresionMatematica(input)
+        setOutput(resultado)
+
+    }
+    function calcularExpresionMatematica(cadena) {
+        try {
+            // Utilizamos la función eval para evaluar la expresión
+            // Esto puede ser peligroso si la cadena proviene de fuentes no confiables
+            // Asegúrate de validar o limpiar la entrada antes de usar eval en un entorno real
+            const resultado = eval(cadena);
+
+            if(resultado == "Infinity")
+                return "No se puede dividr entre 0"
+            // Verificamos si el resultado es un número válido
+            if (typeof resultado === 'number' && !isNaN(resultado)) {
+                return resultado;
+            } else {
+                return 'Error de sintaxis'
+            }
+        } catch (error) {
+            return 'Eror de sintaxis';
+        }
+    }
+
+
+
+
+
+    function EqualButton() {
+    return <button id="equals" onClick={equalHandle}>=</button>;
   }
 
   function Display() {
-    return <div id="display">{input}</div>;
+    return <div id="display">
+        <p id={"display-input"}>{input}</p>
+        <p id={"display-output"} style={{"color":"#549159"}}>{output}</p>
+    </div>;
   }
 
   function NumbersButtons() {
@@ -35,9 +78,16 @@ function App() {
     return (
         <div className="numbers-wrapper">
           {idButtons.map((key, index) => (
-              <button key={index} id={names[index]} onClick={handleClick} value={key}>
-                {key}
+              <button
+                  key={index}
+                  id={names[index]}
+                  onClick={handleClick}
+                  value={key}
+                  className={key === "0" ? "button-zero" : "button-number"}
+              >
+                  {key}
               </button>
+
           ))}
         </div>
     );
@@ -63,25 +113,71 @@ function App() {
         return <button id={"clear"} onClick={clear} style={{"color":"red"}}>AC</button>
 
     }
-    function validator(expression)
+    function DeleteButton()
     {
+        return <button id={"delete"} onClick={deleteHandle} style={{"color":"red"}}> Borrar </button>
+
+    }
+    function validator(value,input)
+    {
+        let operationCount = 0
+        let lastElement = input[input.length-1]
+        let numOfDots = input.split('').filter(caracter => caracter === '.').length;
+        let numOfOperators = input.split('').filter(caracter => (caracter === '*' || caracter === '+' || caracter === '-' ||caracter === '/')).length;
+        console.log("nmumero de puntos: " + numOfDots)
+        console.log("numero de operadores " + numOfOperators)
 
 
-        let operation = " x"
-        return operation;
+        if(value === "*" || value === "/" || value === "+" || value === ".")
+        {
+            if(value === lastElement)
+                return input
+
+            if(value === ".")
+            {
+                //xd , para que se salte esta validacion y no cambie el anterior operador por punto
+            }
+            else if(lastElement  === "*" || lastElement  === "/" || lastElement === "+")
+            {
+                let aux = ""
+                for(let i = 0;i < input.length-1; i++)
+                {
+                    aux += input[i]
+                }
+                return aux + value;
+            }
+
+        }
+
+        if(value === "." )
+            if(numOfOperators < numOfDots)
+                return input
+
+        return input + value
     }
 
-  return (
-      <div>
-        <h1>Hola</h1>
+
+
+
+
+
+    return (
+      <div id={"App"}>
+        <h1 id={"title"}>Calculator</h1>
         <Display />
-        <NumbersButtons />
-        <EqualButton />
-          <AddButton />
-          <SubtractButton />
-          <DivideButton />
-          <MultiplyButton />
           <ClearButton  />
+          <DeleteButton />
+        <NumbersButtons />
+  <div className={"operators-wrapper"}>
+      <DivideButton />
+      <MultiplyButton />
+      <SubtractButton />
+      <AddButton />
+
+  </div>
+          <EqualButton />
+
+          <p className={"firma"}>by <i>lucioggm</i></p>
 
       </div>
   );

@@ -1,38 +1,113 @@
-.App {
+#App {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 400px;
+  height: 600px;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#title {
   text-align: center;
+  width: 100%;
+  height: 50px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  line-height: 50px;
+  font-size: 1.5em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#display {
+  background: #f8f8f8;
+  padding: 10px;
+  width: 100%;
+  height: 70px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#display-input,
+#display-output {
+  margin: 0;
+  font-size: 1.5em;
+  text-align: right;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.numbers-wrapper {
+  width: 70%;
+  justify-content: center;
+  background: #f0f0f0;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.button-number {
+  width: 25%;
+  color: #333;
+  font-size: 1.2em;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #fff;
+}
+
+.button-zero {
+  width: 60%;
+}
+
+
+
+#clear,
+#delete {
+    position: relative;
+  right: 14%;
+  width: 37%;
+  font-size: 1.2em;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #ff9999;
+}
+
+.operators-wrapper {
+  width: 25%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+#divide,
+#multiply,
+#add,
+#subtract {
+  height: 20%;
+  font-size: 1.5em;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #66ccff;
+}
+
+#equals {
   color: white;
+  width: 100%;
+  font-size: 1.5em;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #3498db;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #3498db;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
